@@ -1,6 +1,6 @@
 ---
-name: "[Feature] <기능 제목>"
-about: Suggest an idea for this project
+name: "\U0001F680 Feature Request"
+about: "[Feature] <기능 제목>"
 title: ''
 labels: ''
 assignees: ''
