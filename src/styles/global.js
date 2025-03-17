@@ -7,16 +7,20 @@ export const global = css`
     html, body, #root {
         margin: 0;
         padding: 0;
-        height: 100vh;
-        overflow: auto;
-
         font-family: "Noto Sans KR", serif;
         font-size: 62.5%;
+        background-color: #fafafa;
     }
 
     #root {
         display: flex;
         justify-content: center;
         align-items: center;
+        box-sizing: border-box;
+        /* padding-top: 5rem; */
+    }
+
+    a {
+        text-decoration: none;
     }
 `;
