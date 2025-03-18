@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 export const wrapper = css`
   width: 100%;
   max-width: 120rem;
-  height: 50rem;  // 슬라이드 높이 고정
+  height: 50rem;
   margin: 0 auto;
   overflow: hidden; 
   position: relative;
@@ -12,13 +12,13 @@ export const wrapper = css`
 
 export const imageContainer = css`
   width: 100%;
-  height: 50rem;  // 슬라이드 높이 고정
-  overflow: hidden;  // 이미지 넘치는 부분 숨김
+  height: 50rem;
+  overflow: hidden;
 `;
 
 export const imageStyle = css`
-  width: 100%;    // 부모 크기에 맞게 이미지 크기 조정
-  height: 100%;   // 부모 크기에 맞게 이미지 크기 조정
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
 `;
@@ -38,16 +38,34 @@ export const productItems = css`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  border: 0.1rem solid #000000;
+  border: 0.1rem solid #dddddd;
   width: 22rem;
   height: 22rem;
+  position: relative;
+  cursor: pointer;
+`;
+
+export const categoryLabel = css`
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  font-size: 1.2rem;
+  border-radius: 0.3rem;
+  z-index: 1;
 `;
 
 export const productImg = css`
-  box-sizing: border-box;
-  border: 0.1rem solid #000000;
   width: 17rem;
   height: 17rem;
+
+  & > img {
+    width: 17rem;
+    height: 17rem;
+    object-fit: cover;
+  }
 `;
 
 export const productinfo = css`
@@ -58,5 +76,9 @@ export const productinfo = css`
 
   & div {
     font-size: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 20rem;
   }
 `;

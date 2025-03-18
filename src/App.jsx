@@ -9,6 +9,7 @@ import Footer from "./components/common/Footer/Footer"
 import MainPage from "./pages/MainPage/MainPage"
 import SlickPage from "./pages/SlickPage/SlickPage"
 import ProductDetail from "./pages/ProductDetail/ProductDetail"
+import ProductList from "./pages/ProductList/ProductList"
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
 						<Route path="/" element={<MainPage />} />
 						<Route path="/slick" element={<SlickPage />} />
 						<Route path="/product/:productId" element={<ProductDetail />} />
+						<Route path="/product" element={<ProductList />} />
 						<Route path="/test" element={<TestPage />} />
 					</Routes>
 				</MainContainer>
