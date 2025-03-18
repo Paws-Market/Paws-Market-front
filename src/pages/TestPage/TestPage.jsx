@@ -1,12 +1,14 @@
 /**@jsxImportSource @emotion/react */
 import { getTestMessage } from '../../apis/testApi';
+import { useTestMutation } from '../../mutations/testMutation';
 import * as s from './style';
 import React, { useEffect, useState } from 'react';
 
 function TestPage(props) {
+    const testMutation = useTestMutation();
 
     const [response, setResponse] = useState("");
-
+    const [ name, setName ] = useState("");
 
     useEffect(() => {
         const fetchMessage = async () => {
@@ -21,6 +23,15 @@ function TestPage(props) {
 
         fetchMessage();
     }, []);
+
+    const handleInputOnChange = (e) => {
+        setName(e.target.value);
+        console.log(name);
+    }
+
+    const handleSubmitButtonOnClick = async () => {
+        const nameresp = await testMutation.mutateAsync(name);
+    }
     
 
     return (
@@ -28,6 +39,10 @@ function TestPage(props) {
             <br />
             <h2>test</h2>
             <h2>{response}</h2>
+            <div>
+                <input type="text" placeholder="이름" value={name} onChange={handleInputOnChange} />
+                <button onClick={handleSubmitButtonOnClick}>전송</button>
+            </div>
         </div>
     );
 }
