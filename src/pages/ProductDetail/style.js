@@ -29,11 +29,11 @@ export const productInfo = css`
 `;
 
 export const quantityInput = css`
-  width: 60px;
-  padding: 5px;
-  margin-left: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 6rem;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.4rem;
   text-align: center;
 `;
 

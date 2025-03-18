@@ -99,9 +99,48 @@ export const accountContainer = css`
     }
 `;
 
+export const searchForm = css`
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  & input {
+    color: #242424;
+  }
+`;
+
+export const searchInput = css`
+  position: absolute;
+  right: 3rem;
+  padding: 0.5rem 1rem;
+  width: 17rem;
+  border: 1px solid #ccc;
+  border-radius: 1.2rem;
+  background-color: white;
+  z-index: 10;
+
+  transform: scaleX(0);
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: right center;
+
+  transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+`;
+
+export const searchInputOpen = css`
+  transform: scaleX(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+`;
+
 export const cartIcon = css`
-    
-    & svg {
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 1100;
+
+  & svg {
         font-size: 2.5rem;
         padding-top: 0.5rem;
     }

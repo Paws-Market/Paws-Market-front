@@ -1,21 +1,63 @@
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
+import { getProductList } from '../../apis/productApi';
+import { useNavigate } from 'react-router-dom';
+import { getCategoryList } from '../../apis/categoryApi';
 
 function SlickPage() {
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // 카테고리 정보 가져오기
+        getCategoryList().then((data) => {
+            if (data.status === "SUCCESS") {
+                setCategories(data.data);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if (categories.length) {
+            fetchTopProducts();
+        }
+    }, [categories]); // 카테고리 정보가 로드되면 상품을 가져옴
+
+    const fetchTopProducts = async () => {
+        setProducts(await Promise.all(
+            categories.map(async (category) => {
+                const params = {
+                    pageNo: 0,
+                    pageSize: 1,
+                    sortBy: 'salesQuantity',
+                    direction: 'desc',
+                    categoryType: category.categoryType
+                };
+                const response = await getProductList(params);
+                return { ...response.data[0], categoryName: category.categoryName, categoryType: category.categoryType };
+            })
+        ));
+    };
+
+    const handleProductClick = (productId) => {
+        navigate(`/product/${productId}`);
+    };
+
     const settings = {
-        dots: false,            // 슬라이드 아래 네비게이션 버튼
-        infinite: true,         // 무한반복
-        speed: 500,             // 슬라이드 전환 속도
-        slidesToShow: 1,        // 한 번에 보여줄 슬라이드 개수
-        slidesToScroll: 1,      // 한 번에 넘어가는 슬라이드 개수
-        adaptiveHeight: false,   // 슬라이드별 높이 자동 조정
-        autoplay: true,         // 자동 슬라이드 활성화
-        autoplaySpeed: 3500,    // 자동 슬라이드 전환 간격 (3.5초)
-        pauseOnHover: true,     // 마우스 Hover 시 멈춤
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        adaptiveHeight: false,
+        autoplay: true,
+        autoplaySpeed: 3500,
+        pauseOnHover: true,
     };
 
     return (
@@ -34,51 +76,24 @@ function SlickPage() {
                 </Slider>
             </div>
             <div css={s.productContainer}>
-                <div css={s.productItems}>
-                    <div css={s.productImg}>
-
+                {products.map((product, idx) => (
+                    <div 
+                        key={idx}
+                        css={s.productItems}
+                        onClick={() => handleProductClick(product.productId)}
+                    >
+                        <div css={s.categoryLabel}>
+                            {product.categoryName} Best 1
+                        </div>
+                        <div css={s.productImg}>
+                            <img src={product.imageUrl} alt={product.productName} />
+                        </div>
+                        <div css={s.productinfo}>
+                            <div>{product.productName}</div>
+                            <div>{product.price.toLocaleString()}원</div>
+                        </div>
                     </div>
-                    <div css={s.productinfo}>
-                        <div>상품명</div>
-                        <div>가격</div>
-                    </div>
-                </div>
-                <div css={s.productItems}>
-                    <div css={s.productImg}>
-
-                    </div>
-                    <div css={s.productinfo}>
-                        <div>상품명</div>
-                        <div>가격</div>
-                    </div>
-                </div>
-                <div css={s.productItems}>
-                    <div css={s.productImg}>
-
-                    </div>
-                    <div css={s.productinfo}>
-                        <div>상품명</div>
-                        <div>가격</div>
-                    </div>
-                </div>
-                <div css={s.productItems}>
-                    <div css={s.productImg}>
-
-                    </div>
-                    <div css={s.productinfo}>
-                        <div>상품명</div>
-                        <div>가격</div>
-                    </div>
-                </div>
-                <div css={s.productItems}>
-                    <div css={s.productImg}>
-
-                    </div>
-                    <div css={s.productinfo}>
-                        <div>상품명</div>
-                        <div>가격</div>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );
